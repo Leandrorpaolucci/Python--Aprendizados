@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm  #      |     FlaskForm recebeu por herança as funcionalidades de criação do forms
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField  #    | Tipos de campos no formulários
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField  #    | Tipos de campos no formulários
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from sitecomunidade.models import Usuario
 from flask_login import current_user
@@ -55,3 +55,8 @@ class FormEditarPerfil(FlaskForm):
                 raise ValidationError('Já existe um usuário com esse e-mail. Cadastre um novo e-mail', 'alert-danger')
 
 
+
+class FormCriarPost(FlaskForm):
+    titulo = StringField('Titulo do Post', validators=[DataRequired(), Length(2, 140)])
+    corpo = TextAreaField('Escreva sua mensagem aqui', validators=[DataRequired()])
+    botao_submit = SubmitField('Criar Post')
